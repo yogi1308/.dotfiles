@@ -1,3 +1,6 @@
 [submodule "rofiftw/.config/rofiftw/rofi-blocks"]
 	path = rofiftw/.config/rofiftw/rofi-blocks
 	url = https://github.com/OmarCastro/rofi-blocks.git
+[submodule "nvim/.config/nvim"]
+	path = nvim/.config/nvim
+	url = https://github.com/nvim-lua/kickstart.nvim.git
