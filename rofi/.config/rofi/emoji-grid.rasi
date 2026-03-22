@@ -1,0 +1,44 @@
+@import "config"
+
+/* 1. Force the Window to a specific size for the grid */
+window {
+    width:      600px;
+    height:     450px;
+}
+
+/* 2. Remove the prompt/entry to keep it clean */
+mainbox {
+    children: [ inputbar, listview, sidebar ];
+}
+
+/* 3. The Grid Layout */
+listview {
+    columns:       9;
+    lines:         7;
+    cycle:         true;
+    fixed-height:  true;
+    fixed-columns: true;
+    
+    /* These ensure a predictable grid flow */
+    layout:        vertical;
+    spacing:       5px;
+    scrollbar:     false;
+}
+
+/* 4. Square Elements */
+element {
+    orientation: vertical;
+    padding:     10px;
+}
+
+element-text {
+    font:               "FiraCode Nerd Font 24";
+    vertical-align:     0.5;
+    horizontal-align:   0.5;
+    cursor:             pointer;
+}
+
+/* 5. Hide Icons (the actual file icons) so only the emoji shows */
+element-icon {
+    enabled: false;
+}

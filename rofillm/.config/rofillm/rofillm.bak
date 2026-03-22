@@ -1,0 +1,92 @@
+#!/bin/bash
+
+PERSONAS_FILE="$HOME/.config/rofillm/personas.conf"
+
+THINKING_MESSAGES=(
+    "⚡ Consulting the matrix..."
+    "🧠 Neurons firing..."
+    "🔭 Scanning the knowledge universe..."
+    "☕ Brewing your answer..."
+    "🎲 Calculating probabilities..."
+    "🌀 Bending spacetime for your query..."
+    "🤔 Thinking really hard..."
+    "🔬 Running mental simulations..."
+    "📡 Pinging the hive mind..."
+    "🧬 Sequencing the answer DNA..."
+    "🌊 Surfing the information wave..."
+    "🔮 Gazing into the crystal cache..."
+    "🧩 Assembling the puzzle pieces..."
+    "🚀 Launching into knowledge space..."
+    "⚙️ Spinning up the logic engine..."
+    "🌌 Traversing the neural galaxy..."
+    "📚 Raiding the library of Alexandria..."
+    "🎯 Locking onto target frequency..."
+    "🧲 Attracting relevant data points..."
+    "💡 Charging the idea capacitor..."
+    "🔑 Unlocking the answer vault..."
+    "🌿 Growing a decision tree..."
+    "🎻 Tuning the reasoning strings..."
+    "🏄 Riding the inference wave..."
+    "🦉 Consulting the wise owl..."
+    "🔧 Tightening the logic bolts..."
+    "🌐 Querying the noosphere..."
+    "🧊 Defrosting some frozen knowledge..."
+    "🎲 Rolling for intelligence..."
+    "⏳ Compressing decades of reading..."
+    "🕵️ Investigating the facts..."
+    "🧪 Running the experiment..."
+    "🔭 Zooming in on the answer..."
+    "🗺️ Charting unknown territories..."
+    "🎮 Loading the knowledge cartridge..."
+    "🛸 Abducting the right answer..."
+    "🧠 Defragmenting the thought drive..."
+    "📡 Receiving transmission from the cloud..."
+    "🌀 Spinning up the inference loop..."
+    "🔬 Examining under the logic microscope..."
+)
+
+# --- Step 1: Pick a persona ---
+PERSONA=$(awk -F'|' '{print $1}' "$PERSONAS_FILE" | \
+    rofi -dmenu -p "🤖 Expert:" -i -no-custom \
+    -theme-str "window {width: 30%;} listview {lines: 5;}")
+
+[ -z "$PERSONA" ] && exit 0
+
+SYSTEM_PROMPT=$(grep "^$PERSONA|" "$PERSONAS_FILE" | awk -F'|' '{print $2}')
+
+# --- Step 2: Enter query ---
+QUERY=$(rofi -dmenu \
+    -p "" \
+    -theme-str "window {width: 45%;} inputbar {padding: 12px;} listview {lines: 0;} entry {placeholder: \"Send a message...\";}")
+
+[ -z "$QUERY" ] && exit 0
+
+# --- Step 3: Animated thinking indicator (no input box, no border) ---
+(
+    while true; do
+        echo "${THINKING_MESSAGES[$RANDOM % ${#THINKING_MESSAGES[@]}]}"
+        sleep 2
+    done
+) | rofi -dmenu -p "" \
+    -theme-str "window {width: 35%;} listview {lines: 15; border: 0px; padding: 8px;} inputbar {enabled: false;}" \
+    -no-fixed-num-lines &
+ROFI_LOADING_PID=$!
+
+# --- Step 4: Query llm ---
+ANSWER=$(llm -s "$SYSTEM_PROMPT" "$QUERY" 2>&1)
+
+kill $ROFI_LOADING_PID 2>/dev/null
+wait $ROFI_LOADING_PID 2>/dev/null
+
+# --- Step 5: Display scrollable dynamic answer ---
+HEADER="[$PERSONA] — $QUERY"
+SEPARATOR="─────────────────────"
+WRAPPED=$(echo "$ANSWER" | fold -s -w 80)
+
+# Count lines to set dynamic height (capped at 15)
+LINE_COUNT=$(printf '%s\n%s\n%s' "$HEADER" "$SEPARATOR" "$WRAPPED" | wc -l)
+LINES=$(( LINE_COUNT < 5 ? 5 : (LINE_COUNT > 20 ? 20 : LINE_COUNT) ))
+
+printf '%s\n%s\n%s' "$HEADER" "$SEPARATOR" "$WRAPPED" | \
+    rofi -dmenu -p "" -no-custom \
+    -theme-str "window {width: 55%;} listview {lines: $LINES; scrollbar: true; border: 0px;} inputbar {enabled: false;} scrollbar {width: 4px;}"

@@ -1,0 +1,322 @@
+// -*- mode: jsonc -*-
+{
+    "reload_style_on_change": true,
+    // "on-sigusr1": "hide",
+    // "on-sigusr2": "show",
+    // "mode": "hide",
+    // "modifier-reset": "press",
+    // "exclusive": false,
+    // "passthrough": true,
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    // "height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 2, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+        "custom/updates",
+        "custom/weather"
+    ],
+    "modules-center": [
+        // "hyprland/window",
+        "hyprland/workspaces",
+        "hyprland/mode",
+        "hyprland/scratchpad",
+        "hyprland/special-workspaces"
+    ],
+    "modules-right": [
+        "custom/kdeconnect",
+        "pulseaudio#speakers",
+        "pulseaudio#microphone",
+        "bluetooth",
+        "network",
+        "power-profiles-daemon",
+        "battery",
+        "clock",
+        "custom/power"
+    ],
+    // Modules configuration
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{name}",
+        "on-click": "",
+        // "format": "{name}: {icon}",
+        // "format-icons": {
+        //     "active": "",
+        //     "default": ""
+        // }
+    },
+    // "keyboard-state": {
+    //     "numlock": true,
+    //     "capslock": true,
+    //     "format": "{name} {icon}",
+    //     "format-icons": {
+    //         "locked": "",
+    //         "unlocked": ""
+    //     }
+    // },
+    // "hyprland/mode": {
+    //     "format": "<span style=\"italic\">{}</span>"
+    // },
+    // "hyprland/scratchpad": {
+    //     "format": "{icon} {count}",
+    //     "show-empty": false,
+    //     "format-icons": ["", ""],
+    //     "tooltip": true,
+    //     "tooltip-format": "{app}: {title}"
+    // },
+    // "mpd": {
+    //     "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    //     "format-disconnected": "Disconnected ",
+    //     "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    //     "unknown-tag": "N/A",
+    //     "interval": 5,
+    //     "consume-icons": {
+    //         "on": " "
+    //     },
+    //     "random-icons": {
+    //         "off": "<span color=\"#f53c3c\"></span> ",
+    //         "on": " "
+    //     },
+    //     "repeat-icons": {
+    //         "on": " "
+    //     },
+    //     "single-icons": {
+    //         "on": "1 "
+    //     },
+    //     "state-icons": {
+    //         "paused": "",
+    //         "playing": ""
+    //     },
+    //     "tooltip-format": "MPD (connected)",
+    //     "tooltip-format-disconnected": "MPD (disconnected)"
+    // },
+    // "idle_inhibitor": {
+    //     "format": "{icon}",
+    //     "format-icons": {
+    //         "activated": "",
+    //         "deactivated": ""
+    //     }
+    // },
+    // "tray": {
+    //     // "icon-size": 21,
+    //     "spacing": 10,
+    //     // "icons": {
+    //     //   "blueman": "bluetooth",
+    //     //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+    //     // }
+    // },
+    "clock": {
+        "format": "{:%a %dth %I:%M}", 
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "format": {
+                        "months":     "<span color='#ffead3'><b>{}</b></span>",
+                        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                        }
+            },
+        "actions":  {
+            "on-click": "shift_down",      // Left Click = Previous Month
+            "on-click-right": "shift_up", // Middle Click = Next Month
+            "on-click-middle": "mode",      // Right Click = Toggle Month/Year
+            "on-scroll-up": "shift_reset",
+            "on-scroll-down": "shift_reset"
+        }
+
+        // "format-alt": "{:%Y-%m-%d}" gives alternate time when clicked
+    },
+    "cpu": {
+        "format": "{usage}% ",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        // "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": " ",
+        "format-ethernet": "{ipaddr}/{cidr}  ",
+        "tooltip-format": "{essid} 󰇚 {bandwidthDownBits} 󰕒 {bandwidthUpBits}   {signalStrength}%",
+        "format-linked": "{ifname} (No IP)  " ,
+        "format-disconnected": "󰖪 ",
+        "on-click": "gtk-launch nmtui.desktop"
+    },
+    // "pulseaudio": {
+    //     // "scroll-step": 1, // %, can be a float
+    //     "format": "{volume}% {icon} {format_source}",
+    //     "format-bluetooth": "{volume}% {icon} {format_source}",
+    //     "format-bluetooth-muted": " {icon} {format_source}",
+    //     "format-muted": " {format_source}",
+    //     "format-source": "{volume}% ",
+    //     "format-source-muted": "",
+    //     "format-icons": {
+    //         "headphone": "",
+    //         "hands-free": "",
+    //         "headset": "",
+    //         "phone": "",
+    //         "portable": "",
+    //         "car": "",
+    //         "default": ["", "", ""]
+    //     },
+    //     "on-click": "pavucontrol"
+    // },
+    "pulseaudio#speakers": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "headset": "󰋎",
+            "default": ["", "", ""]
+        },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol",
+    },
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": "󰍬",
+        "format-source-muted": "󰍭",
+        "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+        "on-click-right": "pavucontrol",
+    },
+    // "bluetooth": {
+    //     "format": "",
+    //     "format-connected": " {device_alias}",
+    //     "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    //     // "format-device-preference": [ "device1", "device2" ], // preference list
+    //     "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    //     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    //     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    //     "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    //     "on-click": "blueman-manager" // Opens the GUI to pair/connect
+    // },
+    // "bluetooth": {
+    //     // "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+    //     "format": " {status}",
+    //     "format-disabled": "", // an empty format will hide the module
+    //     "format-connected": " {num_connections} connected",
+    //     "tooltip-format": "{controller_alias}\t{controller_address}",
+    //     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    //     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    // },
+    "bluetooth": {
+        // "format": " {status}",
+        // "format-connected": " {device_alias}",
+        // "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        "format": "  ",
+        "format-disabled": " 󰂲 ",
+        "format-connected": "  ",
+        "format-connected-battery": "  ",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "kitty --class 'bluetui' -e bluetui & notify-send 'Opening' 'BlueTUI (Bluetooth Manager TUI)' -t 3000",
+        "on-click-right": "sudo systemctl enable --now bluetooth",
+        "on-click-middle": "blueman-manager & notify-send 'Opening' 'Blueman (Bluetooth Manager GUI)' -t 3000"
+    },
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/power": {
+        "format" : " ⏻ ",
+		"tooltip": false,
+		"menu": "on-click",
+		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+		"menu-actions": {
+			"shutdown": "shutdown",
+			"reboot": "reboot",
+			"suspend": "systemctl suspend",
+			"hibernate": "systemctl hibernate"
+		}
+    },
+    "custom/updates": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "format-icons": {
+            "has-updates": "󱍷",
+            "updated": "󰂪"
+        },
+        "exec": "/usr/bin/waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300 --arrow-style ' → ' --column-color-overrides '1=00baff,2=ffffff,3=00ff99,4=f53c3c' --max-updates 5",
+        "on-click": "kitty --class nmtui -e sh -c 'sudo pacman -Syu; yay -Sya; echo Done; read'",
+        "tooltip": true
+    },
+    "custom/weather": {
+        // "exec": "~/.config/waybar/wwb.py waybar",
+        "exec": "waybar-weather",
+        "restart-interval": 60,
+        "return-type": "json",
+        "hide-empty-text": true,
+    },
+    "custom/kdeconnect": {
+        "exec": "~/.config/waybar/kdeconnect.sh",
+        "return-type": "json",
+        "interval": 10,
+        "tooltip": true,
+        "on-click": "kdeconnect-app",       // opens KDE Connect GUI
+        "format": "{}"
+    }
+}

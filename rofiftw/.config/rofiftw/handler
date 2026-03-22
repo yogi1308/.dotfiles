@@ -1,0 +1,107 @@
+#!/bin/bash
+# Requires:
+# https://github.com/OmarCastro/rofi-blocks
+# jq (https://github.com/stedolan/jq)
+#
+## realtime suggestions for rofi
+## Author: https://github.com/BelkaDev
+## Modified to use /tmp/rofiftw_log.tmp
+
+############# SETTINGS
+refreshrate=2
+ddg_api=$(dirname $0)/APIs/ddg
+baidu_api=$(dirname $0)/APIs/baidu
+lastfm_api=$(dirname $0)/APIs/lastfm
+deezer_api=$(dirname $0)/APIs/deezer
+google_api=$(dirname $0)/APIs/google
+amazon_api=$(dirname $0)/APIs/amazon
+youtube_api=$(dirname $0)/APIs/youtube
+archwiki_api=$(dirname $0)/APIs/archwiki
+wikipedia_api=$(dirname $0)/APIs/wikipedia
+googlebooks_api=$(dirname $0)/APIs/googlebooks
+##################################################
+
+logfile="/tmp/rofiftw_log.tmp"
+
+[ ! -f "$logfile" ] && echo "run the wrapper script instead" && exit 1
+
+API=$(cat "$logfile")
+# Do NOT rm logfile here — suggest needs to read the final query from it
+
+case "$API" in
+    "ddg")       search="$ddg_api"        ; allowExcess=true ;;
+    "deezer")    search="$deezer_api"                        ;;
+    "youtube")   search="$youtube_api"    ; allowExcess=true ;;
+    "google")    search="$google_api"     ; allowExcess=true ;;
+    "books")     search="$googlebooks_api"                   ;;
+    "lastfm")    search="$lastfm_api"                        ;;
+    "wikipedia") search="$wikipedia_api"  ; allowExcess=true ;;
+    "amazon")    search="$amazon_api"     ; allowExcess=true ;;
+    "archwiki")  search="$archwiki_api"   ; allowExcess=true ;;
+    "baidu")     search="$baidu_api"      ; allowExcess=true ;;
+    *) echo "unrecognized api" && exit 1 ;;
+esac
+
+suggestions=""
+default_custom_format="{{name_enum}}:{{value}}"
+custom_format="${format:-$default_custom_format}"
+
+urlencode() {
+    echo ${1// /"%20"}
+}
+
+convertJson() {
+    echo "$1" | sed -e 's/\\/\\\\/g' -e 's/\"/\\"/g' -e 's/.*/"&"/' | paste -sd "," -
+}
+
+removeIllegal() {
+    echo "$1" | tr -dc '[:alnum:][:space:]-\n\r'
+}
+
+fill_menu() {
+    JSON_LINES="$(convertJson "$suggestions")"
+    TEXT=$(cat <<EOF | tr -d "\n" | tr -d "\t"
+{
+    "event format":"${custom_format}",
+    "lines":[
+    ${JSON_LINES}
+    ]
+}
+EOF
+)
+    printf '%s\n' "$TEXT"
+}
+
+echo '{"input action":"send"}'
+
+unset length i
+while IFS= read -r line; do
+    ((i++))
+
+    # User selected an entry — write it to logfile and exit
+    if [[ "$line" = 'SELECT'* ]]; then
+        selected=$(echo "$line" | cut -d':' -f2-)
+        break
+    fi
+
+    print=$(echo "$line" | cut -d':' -f2-)
+
+    # Reduce API calls — skip if input got shorter
+    [[ "${#print}" < $length ]] && length="${#print}" && continue
+    length="${#print}"
+
+    if (( i % refreshrate == 0 )) || [ ! -z "$allowExcess" ]; then
+        suggestions="$(removeIllegal "$(bash "$search" "$print")")"
+        # Prepend raw input as first option so Enter always works
+        [[ "${line:0:1}" != '{' ]] && suggestions="${print}"$'\n'"$suggestions"
+        fill_menu "$print"
+    fi
+done
+
+# Capitalize first letter
+selected="$(tr '[:lower:]' '[:upper:]' <<< ${selected:0:1})${selected:1}"
+
+# Write final selection to logfile for suggest to pick up
+[ -z "$selected" ] && rm -f "$logfile" || printf "%s" "$selected" > "$logfile"
+
+exit 0

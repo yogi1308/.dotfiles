@@ -1,0 +1,3 @@
+#!/bin/bash
+export NEWT_COLORS="root=#00baff,#000000 border=#00baff,#000000 window=#000000,#000000 shadow=#000000,#000000 title=#00ff99,#000000 button=#00baff,#000000 button_active=#00ff99,#000000 actbutton=#00ff99,#000000 compactbutton=#00ff99,#000000 checkbox=#f53c3c,#000000 entry=#00ff99,#000000 disentry=#000000,#000000 textbox=#00ff99,#000000 acttextbox=#00baff,#000000 label=#00baff,#000000 listbox=#deddda,#000000 actlistbox=#00ff99,#000000 sellistbox=#f53c3c,#000000 actsellistbox=#00ff99,#000000"
+exec kitty --class nmtui -e nmtui

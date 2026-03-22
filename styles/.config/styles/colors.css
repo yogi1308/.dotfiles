@@ -1,0 +1,7 @@
+/* --- THEME PALETTE --- */
+@define-color main-cyan     #00baff;
+@define-color neon-mint     #00ff99;
+@define-color warning-red   #f53c3c;
+@define-color bg-main       rgba(0, 0, 0, 0.50);
+@define-color bg-hover      rgba(255, 255, 255, 0.1);
+@define-color text-main     #ffffff;

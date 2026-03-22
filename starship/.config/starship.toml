@@ -1,0 +1,33 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+
+# Just the essentials: Where am I and what is my Git status?
+format = "$directory$git_branch$git_state$git_status$character"
+
+[directory]
+style = "bold #38bdf8" # Tailwind Sky 400
+truncation_length = 3
+home_symbol = ""
+format = "[$path]($style)"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold white"
+conflicted = "[=](bold red)"
+untracked = "[?](bold yellow)"
+modified = "[!](bold #f87171)" 
+staged = "[+](bold #4ade80)"    
+deleted = "[✘](bold red)"
+
+[git_branch]
+symbol = " "
+style = "bold #7008e7" 
+format = " on [$symbol$branch]($style) "
+
+[line_break]
+disabled = true
