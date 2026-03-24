@@ -26,6 +26,7 @@
     ],
     "modules-right": [
         "custom/kdeconnect",
+        "backlight",
         "pulseaudio#speakers",
         "pulseaudio#microphone",
         "bluetooth",
@@ -150,7 +151,7 @@
         "format-icons": ["", "", ""]
     },
     "backlight": {
-        // "device": "acpi_video1",
+        "device": "intel_backlight",
         "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
