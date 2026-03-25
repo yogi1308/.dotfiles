@@ -2,6 +2,6 @@
 timeout = "1s"
 
 [[handler]]
-on = "windowtitlev2"
-when = "(.*),Sign in – Google accounts — Zen Browser"
+on = "openwindow"
+when = "(.*),.*,zen,.*"
 then = "~/.config/hyprwhenthen/float.sh ${REGEX_GROUP_1}"
