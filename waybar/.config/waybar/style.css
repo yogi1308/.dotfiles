@@ -270,20 +270,20 @@ label:focus {
 }
 
 #mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
+    color: white;
 }
 
 #mpd.disconnected {
-    background-color: @warning-red ;
+    background-color: transparent;
+    color: @warning-red;
 }
 
 #mpd.stopped {
-    background-color: #90b1b1;
+    color: #90b1b1;
 }
 
 #mpd.paused {
-    background-color: #51a37a;
+    color: #51a37a;
 }
 
 #language {

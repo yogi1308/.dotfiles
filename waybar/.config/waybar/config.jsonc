@@ -17,7 +17,9 @@
         "custom/updates",
         "custom/weather",
         "cpu",
-        "memory",
+        "memory"
+        // "mpd",
+        // "custom/mpd-pause"
     ],
     "modules-center": [
         // "hyprland/window",
@@ -70,32 +72,52 @@
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
-    // "mpd": {
-    //     "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-    //     "format-disconnected": "Disconnected ",
-    //     "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-    //     "unknown-tag": "N/A",
-    //     "interval": 5,
-    //     "consume-icons": {
-    //         "on": " "
-    //     },
-    //     "random-icons": {
-    //         "off": "<span color=\"#f53c3c\"></span> ",
-    //         "on": " "
-    //     },
-    //     "repeat-icons": {
-    //         "on": " "
-    //     },
-    //     "single-icons": {
-    //         "on": "1 "
-    //     },
-    //     "state-icons": {
-    //         "paused": "",
-    //         "playing": ""
-    //     },
-    //     "tooltip-format": "MPD (connected)",
-    //     "tooltip-format-disconnected": "MPD (disconnected)"
-    // },
+    "mpd": {
+        "format": "󰒮 {stateIcon} {randomIcon} {repeatIcon} 󰒭",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "󰒮 {stateIcon} {randomIcon} {repeatIcon} 󰒭",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "{title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})\n{album} - {artist}",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "custom/mpd-pause": {
+        "exec": "",
+        "format": "{stateIcon} hi",
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "{title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})\n{album} - {artist}",
+        "tooltip-format-disconnected": "MPD (disconnected)",
+        "on-click": "$HOME/.config/waybar/scripts/mpd-toggle.sh"
+    },
+    "custom/mpd-next": {
+        "format": "󰒭",
+        "tooltip-format": "{title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})\n{album} - {artist}",
+        "tooltip-format-disconnected": "MPD (disconnected)",
+        "on-click": "kitty rmpc next"
+    },
+    "custom/mpd-prev": {
+        "format": "󰒮",
+        "tooltip-format": "{title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})\n{album} - {artist}",
+        "tooltip-format-disconnected": "MPD (disconnected)",
+        "on-click": "kitty rmpc prev"
+    },
     // "idle_inhibitor": {
     //     "format": "{icon}",
     //     "format-icons": {
@@ -300,8 +322,8 @@
         "format": "{icon} {text}",
         "return-type": "json",
         "format-icons": {
-            "has-updates": "󱍷",
-            "updated": "󰂪"
+            "has-updates": "",
+            "updated": ""
         },
         "exec": "/usr/bin/waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300 --arrow-style ' → ' --column-color-overrides '1=00baff,2=ffffff,3=00ff99,4=f53c3c' --max-updates 5",
         "on-click": "kitty --class nmtui -e sh -c 'sudo pacman -Syu; yay -Sya; echo Done; read'",
@@ -312,7 +334,7 @@
         "exec": "waybar-weather",
         "restart-interval": 60,
         "return-type": "json",
-        "hide-empty-text": true,
+        "hide-empty-text": true
     },
     "custom/kdeconnect": {
         "exec": "~/.config/waybar/kdeconnect.sh",
