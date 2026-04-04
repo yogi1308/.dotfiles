@@ -175,6 +175,10 @@ configuration {
       directories-first: true;
       sorting-method:    "name";
   }
+  recursivebrowser {
+      filter-regex: "(.*Music.*|.*node_modules.*|.*__.*|.*target.*|.*dist.*|.*build.*|.*\\.o|\\..*|.*/\\..*)";
+      directory: "~";
+  }
 }
 
 @theme "~/.config/rofi/current.rasi"
