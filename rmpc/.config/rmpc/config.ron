@@ -6,6 +6,7 @@
     password: None,
     theme: None,
     cache_dir: None,
+    lyrics_dir: "~/Music/",
     on_song_change: None,
     volume_step: 5,
     max_fps: 30,
@@ -14,7 +15,7 @@
     enable_mouse: true,
     scroll_amount: 1,
     enable_config_hot_reload: true,
-    enable_lyrics_hot_reload: false,
+    enable_lyrics_hot_reload: true,
     status_update_interval_ms: 1000,
     rewind_to_start_sec: None,
     keep_state_on_song_change: true,
@@ -47,8 +48,8 @@
     eq: []
 ),
     album_art: (
-        method: Auto,
-        max_size_px: (width: 1200, height: 1200),
+        method: Kitty,
+        max_size_px: (width: 3000, height: 3000),
         disabled_protocols: ["http://", "https://"],
         vertical_align: Center,
         horizontal_align: Center,
@@ -176,13 +177,13 @@
                             direction: Vertical,
                             panes: [
                                 (
-                                    size: "100%",
+                                    size: "50%",
                                     borders: "LEFT | RIGHT | TOP",
                                     border_symbols: Rounded,
                                     pane: Pane(AlbumArt)
                                 ),
                                 (
-                                    size: "7",
+                                    size: "50%",
                                     borders: "ALL",
                                     border_symbols: Inherited(parent: Rounded, top_left: "├", top_right: "┤",),
                                     border_title: [(kind: Text(" Lyrics "))],
