@@ -24,6 +24,7 @@
   "control-center-width": 500,
   "control-center-height": 600,
   "notification-window-width": 500,
+  "notification-window-height": 830,
   "keyboard-shortcuts": true,
   "notification-grouping": true,
   "image-visibility": "when-available",

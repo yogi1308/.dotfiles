@@ -13,7 +13,6 @@ case "$BATTERY_STATE" in
         ICON="battery-charging"
         
         # 1. Force SwayNC to close the specific ID 9991 if it exists
-        swaync-client -cp 9991 2>/dev/null
         
         # 2. Send the new notification
         notify-send "$TITLE" "Battery: ${BATTERY_LEVEL}%" -u normal -i "$ICON" -t 3000 -r 9991

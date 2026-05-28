@@ -26,7 +26,6 @@ window#osd progressbar,
 window#osd segmentedprogress {
   min-height: 5px;
   min-width: 120px;
-  max-width: 120px;
   border-radius: 999px;
   background: transparent;
   border: none;

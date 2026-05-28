@@ -211,9 +211,9 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": " ",
+        "format-linked": " ",
         "format-ethernet": "{ipaddr}/{cidr}  ",
         "tooltip-format": "{essid} 󰇚 {bandwidthDownBits} 󰕒 {bandwidthUpBits}   {signalStrength}%",
-        "format-linked": "{ifname} (No IP)  " ,
         "format-disconnected": "󰖪 ",
         "on-click": "gtk-launch nmtui.desktop"
     },
@@ -246,6 +246,7 @@
             "headset": "󰋎",
             "default": ["", "", ""]
         },
+            "max-volume": 150,
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
     },
@@ -325,7 +326,7 @@
             "has-updates": "",
             "updated": ""
         },
-        "exec": "/usr/bin/waybar-module-pacman-updates --interval-seconds 5 --network-interval-seconds 300 --arrow-style ' → ' --column-color-overrides '1=00baff,2=ffffff,3=00ff99,4=f53c3c' --max-updates 5",
+        "exec": "/usr/bin/waybar-module-pacman-updates --interval-seconds 300 --network-interval-seconds 300 --arrow-style ' → ' --column-color-overrides '1=00baff,2=ffffff,3=00ff99,4=f53c3c'",
         "on-click": "kitty --class nmtui -e sh -c 'sudo pacman -Syu; yay -Sya; echo Done; read'",
         "tooltip": true
     },

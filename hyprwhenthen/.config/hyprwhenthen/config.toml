@@ -5,3 +5,8 @@ timeout = "1s"
 on = "openwindow"
 when = "(.*),.*,zen,.*"
 then = "~/.config/hyprwhenthen/float.sh ${REGEX_GROUP_1}"
+
+[[handler]]
+on = "monitoradded"
+when = "(.*)"
+then = "awww img ~/.dotfiles/backgrounds/.config/backgrounds/bg_edited.jpg"

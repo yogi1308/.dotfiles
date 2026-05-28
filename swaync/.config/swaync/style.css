@@ -81,7 +81,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background {
-  padding: 6px 12px;
+  padding: 0px 0px;
 }
 
 .notification-row .notification-background .notification {
@@ -562,4 +562,9 @@ notificationwindow, blankwindow {
 .widget-inhibitors > button {
   margin-left: 8px;
   border-radius: var(--border-radius);
+}
+
+.floating-notifications {
+    margin-right: 5px;
+    margin-top: 5px;
 }
