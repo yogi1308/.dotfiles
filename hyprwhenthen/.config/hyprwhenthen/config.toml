@@ -1,10 +1,10 @@
 [general]
 timeout = "1s"
 
-[[handler]]
-on = "openwindow"
-when = "(.*),.*,zen,.*"
-then = "~/.config/hyprwhenthen/float.sh ${REGEX_GROUP_1}"
+# [[handler]]
+# on = "openwindow"
+# when = "(.*),.*,zen,.*"
+# then = "~/.config/hyprwhenthen/float.sh ${REGEX_GROUP_1}"
 
 [[handler]]
 on = "monitoradded"
