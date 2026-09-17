@@ -403,3 +403,7 @@ tooltip {
 #custom-kdeconnect.disconnected {
     color: @warning-red;
 }
+
+#custom-notification {
+    min-width: 16px;
+}
