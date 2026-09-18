@@ -288,13 +288,16 @@
         "format-connected": "  ",
         "format-connected-battery": "  ",
         // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-        "on-click": "kitty --class 'bluetui' -e bluetui & notify-send 'Opening' 'BlueTUI (Bluetooth Manager TUI)' -t 3000",
-        "on-click-right": "sudo systemctl enable --now bluetooth",
-        "on-click-middle": "blueman-manager & notify-send 'Opening' 'Blueman (Bluetooth Manager GUI)' -t 3000"
+        "tooltip-format": "Bluetooth: {status}\n{num_connections} connected",
+        "tooltip-format-off": "Bluetooth: OFF",
+        "tooltip-format-on": "Bluetooth: ON\nNo devices connected",
+        "tooltip-format-no-controller": "No Bluetooth controller found",
+        "tooltip-format-connected": "Bluetooth: ON\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%",
+        "on-click": "kitty --class 'bluetui' -e bluetui ",
+        "on-click-right": "sh -c 'bluetoothctl show | grep -q \"Powered: yes\" && bluetoothctl power off || bluetoothctl power on'",
+        "on-click-middle": "blueman-manager"
     },
     "custom/media": {
         "format": "{icon} {text}",
@@ -348,7 +351,7 @@
     },
     "custom/notification": {
         "tooltip": true,
-        "format": "<span size='14pt'>{icon}</span>",
+        "format": "<span size='12pt'>{icon}</span>",
         "format-icons": {
           "notification": "󱅫",
           "none": "󰂜",
@@ -365,4 +368,5 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "escape": true
-  },}
+    }
+}

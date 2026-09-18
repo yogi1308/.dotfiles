@@ -199,12 +199,20 @@ label:focus {
     background-color:@main-cyan ;
 } */
 
-#network.disconnected, #bluetooth.disabled {
+#network.disconnected, #bluetooth.disabled, #bluetooth.off {
     color: @warning-red ;
 }
 
 #network, #bluetooth {
     color: #00baff;
+}
+
+#bluetooth.connected {
+    color: @neon-mint ;
+}
+
+#bluetooth {
+    transition: color 0.3s ease ;
 }
 
 #pulseaudio {
